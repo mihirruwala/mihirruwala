@@ -26,26 +26,49 @@ SEED=[("The Distance Was Never the Point","29 Jul 2026"),("Take the Risk of Grie
 x=get(f"https://medium.com/feed/@{U}")
 posts=[(html.unescape(t),d[5:16]) for t,d in re.findall(r"<item>.*?<title><!\[CDATA\[(.*?)\]\]></title>.*?<pubDate>(.*?)</pubDate>",x,re.S)][:3] or SEED
 posts=[(t,D.datetime.strptime(d,"%d %b %Y")) for t,d in posts]
-today=D.date.today().strftime("%d %b %Y").upper()
-for th,c in T.items():
-    # activity
-    W,H=840,250; b=mono(40,46,"ACTIVITY",c,c["fg"])+mono(800,46,"LAST 52 WEEKS",c,anc="end")+f'<line x1="40" y1="62" x2="800" y2="62" stroke="{c["ln"]}"/>'
-    first=D.date.fromisoformat(days[0][0]); off=(first.weekday()+1)%7; cs,g=11,3.3; x0,y0=48,96; lastm=None
-    op=["", ".28", ".52", ".78", "1"]
+today=D.date.today()
+P={"dark":dict(bg="#0d1117",e="#161b22",lv=["","#0e4429","#006d32","#26a641","#39d353"],ln="rgba(255,255,255,0.55)",tx="#7d8590",fg="#e6edf3",kit="#58a6ff",opp="#f85149",skin="#f2cc8f"),
+   "light":dict(bg="#ffffff",e="#ebedf0",lv=["","#9be9a8","#40c463","#30a14e","#216e39"],ln="rgba(31,35,40,0.45)",tx="#57606a",fg="#1f2328",kit="#0969da",opp="#cf222e",skin="#d4a373")}
+SPR=["..HHH..","..HHH..","...H...",".SSSSS.","S.SSS.S","..SSS..","..L.L.."]
+LEGA=[".L...L.",".L...L."]; LEGB=["..L.L..","...L..."]
+def sprite(c,col,ps=1.6):
+    def px(rows,y0,cls=""):
+        o=""
+        for r,row in enumerate(rows):
+            for k,ch in enumerate(row):
+                if ch!=".": o+=f'<rect x="{k*ps:.1f}" y="{(y0+r)*ps:.1f}" width="{ps}" height="{ps}" fill="{c["skin"] if ch=="H" else col}"/>'
+        return o
+    return px(SPR,0)+f'<g>{px(LEGA,7)}<animate attributeName="opacity" values="1;0" dur=".3s" calcMode="discrete" repeatCount="indefinite"/></g><g opacity="0">{px(LEGB,7)}<animate attributeName="opacity" values="0;1" dur=".3s" calcMode="discrete" repeatCount="indefinite"/></g>'
+for th,c in P.items():
+    W,H=840,232; cs,g=11,3; x0,y0=50,96
+    b=f'<rect width="{W}" height="{H}" fill="{c["bg"]}"/><text x="24" y="44" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="22" font-weight="700" fill="{c["fg"]}">⚽ Contributions</text>'
+    b+=f'<text x="816" y="44" text-anchor="end" font-family="Georgia,serif" font-size="13" fill="{c["tx"]}">{total} this year, every one of them a pass</text>'
+    first=D.date.fromisoformat(days[0][0]); off=(first.weekday()+1)%7; lastm=None; pts=[]
     for k,(d,l) in enumerate(days):
         n=k+off; col,row=n//7,n%7; x,y=x0+col*(cs+g),y0+row*(cs+g); dd=D.date.fromisoformat(d)
-        if dd.day<=7 and row==0 and dd.month!=lastm: b+=mono(x,y0-10,dd.strftime("%b").upper(),c,s=9,ls=1); lastm=dd.month
-        b+=f'<rect x="{x}" y="{y:.1f}" width="{cs}" height="{cs}" rx="2.5" fill="{c["e"] if l==0 else c["ac"]}"{"" if l==0 else f" fill-opacity=\"{op[l]}\""}/>'
-    b+=f'<rect x="{x-2.5}" y="{y-2.5:.1f}" width="{cs+5}" height="{cs+5}" rx="4" fill="none" stroke="{c["fg"]}" stroke-width="1"><animate attributeName="opacity" values="1;.2;1" dur="1.6s" repeatCount="indefinite"/></rect>'
-    sx=40
-    for big,lab in [(total,"contributions"),(str(activeD),"active days"),(str(best),"longest streak"),(str(streak),"current streak")]:
-        b+=f'<text x="{sx}" y="222" font-family="{SER}" font-size="30" fill="{c["fg"]}">{big}</text>'+mono(sx+len(big)*15+10,218,lab.upper(),c,s=9.5,ls=1); sx+=200
-    open(f"{o}/activity-{th}.svg","w").write(svg(W,H,b,c))
-    # writing
-    W,H=840,116+len(posts)*52; b=mono(40,46,"WRITING",c,c["fg"])+mono(800,46,"LATEST ON MEDIUM",c,anc="end")+f'<line x1="40" y1="62" x2="800" y2="62" stroke="{c["ln"]}"/>'
-    for j,(t,dt) in enumerate(posts):
-        y=100+j*52; b+=mono(40,y,dt.strftime("%d %b %Y").upper(),c,s=10,ls=1)+f'<text x="170" y="{y+2}" font-family="{SER}" font-size="24" fill="{c["fg"] if j else c["ac"]}"{" font-style=\"italic\"" if j==0 else ""}>{html.escape(t)}</text>'+mono(800,y,"↗",c,c["fg"],"end",s=13)
-        b+=f'<line x1="40" y1="{y+20}" x2="800" y2="{y+20}" stroke="{c["ln"]}"/>'
-    b+=mono(40,H-24,f"REBUILT DAILY BY GITHUB ACTIONS · {today}",c,s=9,ls=1)
-    open(f"{o}/writing-{th}.svg","w").write(svg(W,H,b,c))
-print(total,activeD,best,streak,len(days),[p[0] for p in posts])
+        if dd.day<=7 and row==0 and dd.month!=lastm: b+=f'<text x="{x}" y="{y0-10}" font-family="Georgia,serif" font-size="12" fill="{c["tx"]}">{dd.strftime("%b")}</text>'; lastm=dd.month
+        b+=f'<rect x="{x}" y="{y}" width="{cs}" height="{cs}" rx="2" fill="{c["lv"][l] if l else c["e"]}"/>'
+        if l: pts.append((x+cs/2,y+cs/2))
+    gx1=x0+(col+1)*(cs+g); mid=y0+3.5*(cs+g)-g/2; top,bot=y0-4,y0+7*(cs+g)+1; hx=(x0-4+gx1)/2
+    L=c["ln"]
+    b+=f'<g fill="none" stroke="{L}" stroke-width="1.2"><rect x="{x0-4}" y="{top}" width="{gx1-x0+2}" height="{bot-top}"/><line x1="{hx}" y1="{top}" x2="{hx}" y2="{bot}"/><circle cx="{hx}" cy="{mid}" r="26"/><rect x="{x0-4}" y="{mid-34}" width="56" height="68"/><rect x="{gx1-58}" y="{mid-34}" width="56" height="68"/><path d="M{x0+52} {mid-16} a20 20 0 0 1 0 32 M{gx1-58} {mid-16} a20 20 0 0 0 0 32"/></g>'
+    b+=f'<g stroke="{c["fg"]}" stroke-width="1.5" fill="none"><path d="M{x0-4} {mid-18} h-10 v36 h10"/><path d="M{gx1-2} {mid-18} h10 v36 h-10"/></g>'
+    route=[(x0+4,mid)]+pts+[(gx1+6,mid)]
+    path="M"+" L".join(f"{x:.1f} {y:.1f}" for x,y in route)
+    b+=f'<path d="{path}" fill="none" stroke="{c["fg"]}" stroke-opacity=".28" stroke-width="1" stroke-dasharray="2 3"/>'
+    for k,(dx,sp) in enumerate([(0.30,3.1),(0.55,2.3),(0.78,2.7)]):
+        x=x0+(gx1-x0)*dx
+        b+=f'<g><animateTransform attributeName="transform" type="translate" values="{x:.0f} {y0};{x:.0f} {bot-16};{x:.0f} {y0}" dur="{sp}s" repeatCount="indefinite"/>{sprite(c,c["opp"])}</g>'
+    dur=max(10,len(route)*0.7)
+    mv=f'<animateMotion dur="{dur}s" repeatCount="indefinite" path="{path}" keyPoints="0;1;1" keyTimes="0;.86;1" calcMode="linear"/>'
+    b+=f'<g>{mv}<g transform="translate(-14 -14)">{sprite(c,c["kit"])}</g><circle r="3.6" fill="#fff" stroke="#1f2328" stroke-width="1"/><circle r="1.3" fill="#1f2328"/></g>'
+    b+=f'<text x="{gx1-70}" y="{top-8}" font-family="Georgia,serif" font-style="italic" font-size="20" font-weight="700" fill="{c["fg"]}" opacity="0">GOAL!<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.86;.88;.98;1" dur="{dur}s" repeatCount="indefinite"/></text>'
+    b+=f'<text x="24" y="{H-12}" font-family="Georgia,serif" font-size="12" fill="{c["tx"]}">Every green square is a day I shipped something. The ball visits them in order. Redrawn daily.</text>'
+    open(f"{o}/pitch-{th}.svg","w").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">{b}</svg>')
+# writing list straight into README (real text, not an image)
+md="\n".join(f"- [{t}](https://medium.com/@{U}) · {dt.strftime('%b %Y')}" for t,dt in posts)
+R=open("README.md").read()
+if "<!--writing-->" in R:
+    a=R.index("<!--writing-->")+len("<!--writing-->"); b2=R.index("<!--/writing-->")
+    open("README.md","w").write(R[:a]+"\n"+md+"\n"+R[b2:])
+print(total,len(pts),[p[0] for p in posts])
