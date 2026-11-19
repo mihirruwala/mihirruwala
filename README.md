@@ -16,11 +16,15 @@
 </details>
 
 <details>
-<summary><b>↳ Writing</b></summary>
+<summary><b>↳ Research</b></summary>
 
 - *Detection Without Legitimacy*: how India, Singapore and Malaysia build institutional trust around AI-content detection, from 40+ days of fieldwork in Kuala Lumpur and Singapore.
 
 </details>
+
+<a href="https://github.com/mihirruwala"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/activity-dark.svg"><img src="assets/activity-light.svg" width="100%" alt="My GitHub activity over the last 52 weeks"></picture></a>
+
+<a href="https://medium.com/@ruwalamihir"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/writing-dark.svg"><img src="assets/writing-light.svg" width="100%" alt="Latest writing on Medium"></picture></a>
 
 <a href="https://mihirruwala.cv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/tokens-dark.svg"><img src="assets/tokens-light.svg" width="100%" alt="Design tokens: ink, ivory, lime, olive, mute. Instrument Serif, Inter, IBM Plex Mono."></picture></a>
 
