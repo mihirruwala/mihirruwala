@@ -21,8 +21,8 @@ for th,c in T.items():
     lab=f"{round(sw)} × {sh}"; lw=len(lab)*6.6+12
     b+=f'<rect x="{sx+sw/2-lw/2:.1f}" y="{sy+sh+8}" width="{lw:.1f}" height="18" rx="3" fill="{BLUE}"/><text x="{sx+sw/2:.1f}" y="{sy+sh+21}" text-anchor="middle" font-family="{SANS}" font-size="11" font-weight="500" fill="#fff">{lab}</text>'
     # handwritten note + hand-drawn arrow
-    nx,ny=W-30-w("how countries decide whether","cav.ttf",28),262
-    b+=f'<g transform="rotate(-4 {nx} {ny})" font-family="HAND,cursive" font-size="28" fill="{c["note"]}"><text x="{nx}" y="{ny}">my actual research:</text><text x="{nx}" y="{ny+30}">how countries decide whether</text><text x="{nx}" y="{ny+60}">to trust AI detectors</text></g>'
+    nx,ny=W-30-w("who gets to decide if an","cav.ttf",28),262
+    b+=f'<g transform="rotate(-4 {nx} {ny})" font-family="HAND,cursive" font-size="28" fill="{c["note"]}"><text x="{nx}" y="{ny}">my research:</text><text x="{nx}" y="{ny+30}">who gets to decide if an</text><text x="{nx}" y="{ny+60}">AI detector can be trusted?</text></g>'
     ax=sx+sw+14
     b+=f'<path d="M{nx-8} {ny-14} C {nx-60} {ny-40}, {ax+60} {ny-46}, {ax+4} {sy+sh/2-4}" fill="none" stroke="{c["note"]}" stroke-width="2.2" stroke-linecap="round"/><path d="M{ax+16} {sy+sh/2-14} L{ax+3} {sy+sh/2-4} L{ax+17} {sy+sh/2+5}" fill="none" stroke="{c["note"]}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
     # multiplayer cursor
