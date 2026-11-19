@@ -1,6 +1,6 @@
 # Rebuilds the live cards (activity heatmap + latest writing). Run daily by .github/workflows/live.yml
 import sys,re,urllib.request,datetime as D,xml.etree.ElementTree as E,html
-o=sys.argv[1] if len(sys.argv)>1 else "assets"; U="mihirruwala"
+o=sys.argv[1] if len(sys.argv)>1 else "assets"; U="mihirruwala"; M="ruwalamihir"
 import subprocess
 def get(u):
     try: return urllib.request.urlopen(urllib.request.Request(u,headers={"User-Agent":"Mozilla/5.0"}),timeout=30).read().decode()
@@ -22,10 +22,10 @@ if i>=0 and not act[i]: i-=1
 while i>=0 and act[i]: streak+=1; i-=1
 activeD=sum(act)
 # Medium sometimes serves an empty feed to scripts; fall back to the last known posts
-SEED=[("The Distance Was Never the Point","29 Jul 2026"),("Take the Risk of Grief","06 Jun 2026"),("Introduction","30 Oct 2025")]
-x=get(f"https://medium.com/feed/@{U}")
-posts=[(html.unescape(t),d[5:16]) for t,d in re.findall(r"<item>.*?<title><!\[CDATA\[(.*?)\]\]></title>.*?<pubDate>(.*?)</pubDate>",x,re.S)][:3] or SEED
-posts=[(t,D.datetime.strptime(d,"%d %b %Y")) for t,d in posts]
+SEED=[("The Distance Was Never the Point","29 Jul 2026",f"https://medium.com/@{M}"),("Take the Risk of Grief","06 Jun 2026",f"https://medium.com/@{M}"),("Introduction","30 Oct 2025",f"https://medium.com/@{M}")]
+x=get(f"https://medium.com/feed/@{M}")
+posts=[(html.unescape(t),d[5:16],l.split("?")[0]) for t,l,d in re.findall(r"<item>.*?<title><!\[CDATA\[(.*?)\]\]></title>.*?<link>(.*?)</link>.*?<pubDate>(.*?)</pubDate>",x,re.S)][:3] or SEED
+posts=[(t,D.datetime.strptime(d,"%d %b %Y"),l) for t,d,l in posts]
 today=D.date.today()
 P={"dark":dict(bg="#0d1117",e="#161b22",lv=["","#0e4429","#006d32","#26a641","#39d353"],ln="rgba(255,255,255,0.55)",tx="#7d8590",fg="#e6edf3",kit="#58a6ff",opp="#f85149",skin="#f2cc8f"),
    "light":dict(bg="#ffffff",e="#ebedf0",lv=["","#9be9a8","#40c463","#30a14e","#216e39"],ln="rgba(31,35,40,0.45)",tx="#57606a",fg="#1f2328",kit="#0969da",opp="#cf222e",skin="#d4a373")}
@@ -66,9 +66,9 @@ for th,c in P.items():
     b+=f'<text x="24" y="{H-12}" font-family="Georgia,serif" font-size="12" fill="{c["tx"]}">Every green square is a day I shipped something. The ball visits them in order. Redrawn daily.</text>'
     open(f"{o}/pitch-{th}.svg","w").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">{b}</svg>')
 # writing list straight into README (real text, not an image)
-md="\n".join(f"- [{t}](https://medium.com/@{U}) · {dt.strftime('%b %Y')}" for t,dt in posts)
+md="\n".join(f"- [{t}]({l}) · {dt.strftime('%b %Y')}" for t,dt,l in posts)
 R=open("README.md").read()
 if "<!--writing-->" in R:
     a=R.index("<!--writing-->")+len("<!--writing-->"); b2=R.index("<!--/writing-->")
     open("README.md","w").write(R[:a]+"\n"+md+"\n"+R[b2:])
-print(total,len(pts),[p[0] for p in posts])
+print(total,len(pts),[p[2] for p in posts])

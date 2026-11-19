@@ -18,9 +18,9 @@ Second-year CSE at VIT Vellore. Frontend is where I'm happiest: I'll happily spe
 ### Writing
 
 <!--writing-->
-- [The Distance Was Never the Point](https://medium.com/@mihirruwala) · Jul 2026
-- [Take the Risk of Grief](https://medium.com/@mihirruwala) · Jun 2026
-- [Introduction](https://medium.com/@mihirruwala) · Oct 2025
+- [The Distance Was Never the Point](https://medium.com/@ruwalamihir/the-distance-was-never-the-point-bec45763de6b) · Jul 2026
+- [Take the Risk of Grief](https://medium.com/@ruwalamihir/take-the-risk-of-grief-d5b4a4a7eb89) · Jun 2026
+- [Introduction](https://medium.com/@ruwalamihir/introduction-a6cd17295409) · Oct 2025
 <!--/writing-->
 
 ---
