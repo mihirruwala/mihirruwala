@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="270" viewBox="0 0 840 270"><rect width="840" height="270" rx="14" fill="#101311"/><rect x=".5" y=".5" width="839" height="269" rx="14" fill="none" stroke="rgba(240,239,231,0.13)"/><style>.f{opacity:0;animation:in .9s cubic-bezier(.22,1,.36,1) forwards}.d2{animation-delay:.35s}.d3{animation-delay:.7s}@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.c{animation:b 1s steps(1) infinite}@keyframes b{50%{opacity:0}}</style>
-<text x="40" y="52" font-family="'IBM Plex Mono',ui-monospace,Menlo,monospace" font-size="12" letter-spacing="2" fill="#92958d">MIHIR RUWALA  ·  CSE, VIT VELLORE  ·  2ND YEAR</text>
-<line x1="40" y1="70" x2="800" y2="70" stroke="rgba(240,239,231,0.13)"/>
-<text x="38" y="134" font-family="'Instrument Serif',Georgia,'Times New Roman',serif" font-size="46" fill="#f0efe7">I build for the web and iOS,</text>
-<text x="38" y="190" font-family="'Instrument Serif',Georgia,'Times New Roman',serif" font-size="46" font-style="italic" fill="#c9f36a">and study why people trust AI.<tspan class="c" fill="#c9f36a">▍</tspan></text>
-<text x="40" y="244" font-family="'IBM Plex Mono',ui-monospace,Menlo,monospace" font-size="12" fill="#92958d">↘ mihirruwala.cv</text></svg>
