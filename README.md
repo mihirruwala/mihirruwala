@@ -1,4 +1,4 @@
-<a href="https://mihirruwala.cv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg"><img src="assets/header-light.svg" width="100%" alt="Mihir Ruwala. Interfaces people can trust. Frontend, iOS, human–AI trust."></picture></a>
+<a href="https://mihirruwala.cv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg"><img src="assets/header-light.svg" width="100%" alt="Mihir Ruwala. I build for the web and iOS, and study why people trust AI."></picture></a>
 
 <a href="https://github.com/mihirruwala/Duo"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/duo-dark.svg"><img src="assets/duo-light.svg" width="49%" alt="DUO: a private space for two. End-to-end encrypted calls and chat."></picture></a>
 <a href="https://github.com/mihirruwala/more-than-a-hack"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/barca-dark.svg"><img src="assets/barca-light.svg" width="49%" alt="Barça Lab: ball possession for every frame from tracking data. 0.484 spellF1 vs 0.408 baseline."></picture></a>

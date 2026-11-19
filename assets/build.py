@@ -4,27 +4,37 @@ o=sys.argv[1]
 SF="/System/Library/Fonts/Supplemental/"
 def tw(t,s,it=False): return ImageFont.truetype(SF+("Georgia Italic.ttf" if it else "Georgia.ttf"),s).getlength(t)
 SER="'Instrument Serif',Georgia,serif";MONO="'IBM Plex Mono',ui-monospace,Menlo,monospace";SANS="Inter,-apple-system,'Segoe UI',Helvetica,sans-serif"
-T={"dark":dict(bg="#101311",p="#171b18",fg="#f0efe7",mu="#92958d",ac="#c9f36a",ln="rgba(240,239,231,0.13)",ln2="rgba(240,239,231,0.05)",ai="#101311"),
-   "light":dict(bg="#f0eee5",p="#e7e4d8",fg="#181b18",mu="#5d6159",ac="#6f8a1f",ln="rgba(24,27,24,0.14)",ln2="rgba(24,27,24,0.05)",ai="#f0eee5")}
-def svg(w,h,b,c): return f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}"><rect width="{w}" height="{h}" rx="16" fill="{c["bg"]}"/><rect x=".5" y=".5" width="{w-1}" height="{h-1}" rx="16" fill="none" stroke="{c["ln"]}"/>{b}</svg>'
+T={"dark":dict(bg="#101311",p="#171b18",fg="#f0efe7",mu="#92958d",ac="#c9f36a",ln="rgba(240,239,231,0.13)",ln2="rgba(240,239,231,0.05)",ai="#101311",glow=".10",grain=".07"),
+   "light":dict(bg="#f0eee5",p="#e7e4d8",fg="#181b18",mu="#5d6159",ac="#6f8a1f",ln="rgba(24,27,24,0.14)",ln2="rgba(24,27,24,0.05)",ai="#f0eee5",glow=".14",grain=".09")}
+def svg(w,h,b,c): return f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}"><defs><radialGradient id="g" cx="1" cy="0" r="1"><stop offset="0" stop-color="{c["ac"]}" stop-opacity="{c["glow"]}"/><stop offset=".6" stop-color="{c["ac"]}" stop-opacity="0"/></radialGradient><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 {c["grain"]} 0"/></filter><clipPath id="k"><rect width="{w}" height="{h}" rx="16"/></clipPath></defs><rect width="{w}" height="{h}" rx="16" fill="{c["bg"]}"/><g clip-path="url(#k)"><rect width="{w}" height="{h}" fill="url(#g)"/><rect width="{w}" height="{h}" filter="url(#n)"/></g><rect x=".5" y=".5" width="{w-1}" height="{h-1}" rx="16" fill="none" stroke="{c["ln"]}"/>{b}</svg>'
 def mono(x,y,t,c,col=None,anc="start",s=11,ls=1.6): return f'<text x="{x}" y="{y}" font-family="{MONO}" font-size="{s}" letter-spacing="{ls}" fill="{col or c["mu"]}" text-anchor="{anc}">{t}</text>'
 for th,c in T.items():
     # ---------- HEADER
-    W,H=840,330; b=""
-    b+="".join(f'<line x1="{40+i*63.33:.1f}" y1="72" x2="{40+i*63.33:.1f}" y2="262" stroke="{c["ln2"]}"/>' for i in range(13))
+    W,H=840,360; b=""
+    b+="".join(f'<line x1="{40+i*63.33:.1f}" y1="72" x2="{40+i*63.33:.1f}" y2="292" stroke="{c["ln2"]}"/>' for i in range(13))
     b+=mono(40,46,"MIHIR RUWALA",c,c["fg"])+mono(800,46,"FRONTEND · iOS · HUMAN–AI TRUST",c,anc="end")
     b+=f'<line x1="40" y1="62" x2="800" y2="62" stroke="{c["ln"]}"/>'+"".join(f'<line x1="{x}" y1="62" x2="{x}" y2="{66 if x%100 else 70}" stroke="{c["ln"]}"/>' for x in range(40,801,20))
-    S=70; x2=40+tw("can ",S); wt=tw("trust.",S,True)
-    b+=f'<text x="38" y="150" font-family="{SER}" font-size="{S}" fill="{c["fg"]}" letter-spacing="-1">Interfaces people</text>'
-    b+=f'<text x="38" y="234" font-family="{SER}" font-size="{S}" fill="{c["fg"]}" letter-spacing="-1">can <tspan font-style="italic" fill="{c["ac"]}">trust.</tspan></text>'
-    sx,sy,sw,sh=x2-8,182,wt+10,68
-    b+=f'<rect x="{sx}" y="{sy}" width="{sw}" height="{sh}" fill="{c["ac"]}" fill-opacity=".07" stroke="{c["ac"]}" stroke-width="1.25"><animate attributeName="stroke-opacity" values="1;.35;1" dur="2.4s" repeatCount="indefinite"/></rect>'
-    b+="".join(f'<rect x="{X-3.5}" y="{Y-3.5}" width="7" height="7" fill="{c["bg"]}" stroke="{c["ac"]}" stroke-width="1.25"/>' for X in (sx,sx+sw) for Y in (sy,sy+sh))
+    S=50; Y=[134,196,262]
+    b+=f'<g font-family="{SER}" font-size="{S}" fill="{c["fg"]}" letter-spacing="-.6"><text x="38" y="{Y[0]}">I build for the web and iOS,</text><text x="38" y="{Y[1]}">and study why people</text><text x="38" y="{Y[2]}" font-style="italic" fill="{c["ac"]}">trust AI.</text></g>'
+    wt=tw("trust AI.",S,True)-S*.6*.18; sx,sy,sw,sh=32,Y[2]-44,wt+14,58
+    b+=f'<rect x="{sx}" y="{sy}" width="{sw}" height="{sh}" fill="{c["ac"]}" fill-opacity=".07" stroke="{c["ac"]}" stroke-width="1.25"/>'
+    b+="".join(f'<rect x="{X-3.5}" y="{Yy-3.5}" width="7" height="7" fill="{c["bg"]}" stroke="{c["ac"]}" stroke-width="1.25"/>' for X in (sx,sx+sw) for Yy in (sy,sy+sh))
     lab=f"{round(sw)} × {sh}"; lw=len(lab)*6.6+16
-    b+=f'<rect x="{sx+sw/2-lw/2}" y="{sy+sh+10}" width="{lw}" height="18" rx="4" fill="{c["ac"]}"/>'+mono(sx+sw/2,sy+sh+23,lab,c,c["ai"],"middle",10.5,.4)
-    cx,cy=sx+sw+6,sy+sh-14
-    b+=f'<g><animateTransform attributeName="transform" type="translate" values="0 0;0 0;64 36;0 0" keyTimes="0;.6;.75;1" dur="5s" calcMode="spline" keySplines="0 0 1 1;.65 0 .35 1;.22 1 .36 1" repeatCount="indefinite"/><path transform="translate({cx} {cy})" d="M0 0 L0 17 L4.6 12.6 L7.6 19.4 L10.4 18.2 L7.4 11.6 L13.4 11.6 Z" fill="{c["fg"]}" stroke="{c["bg"]}" stroke-width="1.2" stroke-linejoin="round"/></g>'
-    b+=f'<line x1="40" y1="276" x2="800" y2="276" stroke="{c["ln"]}"/>'+mono(40,302,"2ND-YEAR CSE · VIT VELLORE",c)+mono(800,302,"MIHIRRUWALA.CV ↗",c,c["fg"],"end")
+    b+=f'<rect x="{sx+sw/2-lw/2}" y="{sy+sh+9}" width="{lw}" height="18" rx="4" fill="{c["ac"]}"/>'+mono(sx+sw/2,sy+sh+22,lab,c,c["ai"],"middle",10.5,.4)
+    # inspector panel
+    px,py,pw,ph=616,162,184,128
+    b+=f'<rect x="{px}" y="{py}" width="{pw}" height="{ph}" rx="10" fill="{c["p"]}" stroke="{c["ln"]}"/>'+mono(px+14,py+22,"TEXT",c,c["fg"],s=9.5,ls=1.4)+mono(px+pw-14,py+22,"⋯",c,anc="end",s=10)
+    b+=f'<line x1="{px}" y1="{py+32}" x2="{px+pw}" y2="{py+32}" stroke="{c["ln"]}"/>'
+    rows=[("Font","Instrument Serif"),("Style","Italic"),("Size",f"{S} / 58"),("Fill",c["ac"].upper())]
+    for i,(k,v) in enumerate(rows):
+        yy=py+52+i*20; b+=mono(px+14,yy,k,c,s=9.5,ls=.3)
+        if k=="Fill": b+=f'<rect x="{px+62}" y="{yy-9}" width="10" height="10" rx="2" fill="{c["ac"]}"/>'+mono(px+78,yy,v,c,c["fg"],s=9.5,ls=.3)
+        else: b+=mono(px+62,yy,v,c,c["fg"],s=9.5,ls=.3)
+    b+=f'<path d="M{sx+sw+12} {sy+sh/2} C 420 {sy+sh/2}, 520 {py+ph/2}, {px-6} {py+ph/2}" fill="none" stroke="{c["ac"]}" stroke-opacity=".45" stroke-dasharray="2 4"/><circle cx="{px-6}" cy="{py+ph/2}" r="2.5" fill="{c["ac"]}"/>'
+    # multiplayer cursor
+    cx,cy=sx+sw-18,sy+sh-6
+    b+=f'<g><animateTransform attributeName="transform" type="translate" values="0 0;0 0;150 -70;300 -20;0 0" keyTimes="0;.45;.62;.8;1" dur="7s" calcMode="spline" keySplines="0 0 1 1;.65 0 .35 1;.65 0 .35 1;.22 1 .36 1" repeatCount="indefinite"/><g transform="translate({cx} {cy})"><path d="M0 0 L0 17 L4.6 12.6 L7.6 19.4 L10.4 18.2 L7.4 11.6 L13.4 11.6 Z" fill="{c["ac"]}" stroke="{c["bg"]}" stroke-width="1.2" stroke-linejoin="round"/><rect x="12" y="18" width="44" height="18" rx="9" fill="{c["ac"]}"/>{mono(34,31,"mihir",c,c["ai"],"middle",10,.3)}</g></g>'
+    b+=f'<line x1="40" y1="306" x2="800" y2="306" stroke="{c["ln"]}"/>'+mono(40,332,"2ND-YEAR CSE · VIT VELLORE",c)+mono(800,332,"MIHIRRUWALA.CV ↗",c,c["fg"],"end")
     open(f"{o}/header-{th}.svg","w").write(svg(W,H,b,c))
     # ---------- CARDS
     def card(n,idx,status,live,title,desc,motif,metric,cap,chips):
