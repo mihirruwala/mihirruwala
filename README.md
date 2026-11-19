@@ -1,7 +1,5 @@
 <a href="https://mihirruwala.cv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg"><img src="assets/header-light.svg" width="100%" alt="Mihir Ruwala. I build for the web and iOS, and study why people trust AI."></picture></a>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/pitch-dark.svg"><img src="assets/pitch-light.svg" width="100%" alt="My contribution graph drawn as a football pitch; a player dribbles the ball through every day I committed and scores."></picture>
-
 Second-year CSE at VIT Vellore. Frontend is where I'm happiest: I'll happily spend an evening on one transition. The rest of the time I'm reading about why people believe (or don't believe) what an AI tells them.
 
 ### Things I've made
@@ -22,6 +20,8 @@ Second-year CSE at VIT Vellore. Frontend is where I'm happiest: I'll happily spe
 - [Take the Risk of Grief](https://medium.com/@ruwalamihir/take-the-risk-of-grief-d5b4a4a7eb89) · Jun 2026
 - [Introduction](https://medium.com/@ruwalamihir/introduction-a6cd17295409) · Oct 2025
 <!--/writing-->
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/pitch-dark.svg"><img src="assets/pitch-light.svg" width="100%" alt="My contribution graph drawn as a football pitch; a player dribbles the ball through every day I committed and scores."></picture>
 
 ---
 
