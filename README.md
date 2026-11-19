@@ -1,4 +1,4 @@
-<a href="https://mihirruwala.cv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg"><img src="assets/header-light.svg" width="100%" alt="Mihir Ruwala. I build for the web and iOS, and study why people trust AI."></picture></a>
+<a href="https://mihirruwala.cv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg?v=3"><img src="assets/header-light.svg?v=3" width="100%" alt="Mihir Ruwala. I build for the web and iOS, and study why people trust AI."></picture></a>
 
 Second-year CSE at VIT Vellore. Frontend is where I'm happiest: I'll happily spend an evening on one transition. The rest of the time I'm reading about why people believe (or don't believe) what an AI tells them.
 
