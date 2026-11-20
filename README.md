@@ -11,7 +11,7 @@ Second-year CSE at VIT Vellore. Frontend is where I'm happiest: I'll happily spe
 
 ### Research
 
-- *Detection Without Legitimacy*: how India, Singapore and Malaysia build institutional trust around AI-content detection, from 40+ days of fieldwork in Kuala Lumpur and Singapore.
+- **[Detection Without Legitimacy](https://ssrn.com/abstract=7707818)** (SSRN, Nov 2026): how India, Singapore and Malaysia are deciding who gets to call AI content fake, from 40+ days of conversations with researchers in Kuala Lumpur and Singapore. [Read the essay](https://mihirruwala.cv/writing/detection-without-legitimacy/).
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/pitch-dark.svg"><img src="assets/pitch-light.svg" width="100%" alt="My contribution graph drawn as a football pitch; a player dribbles the ball through every day I committed and scores."></picture>
 
