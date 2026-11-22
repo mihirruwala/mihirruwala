@@ -24,4 +24,4 @@
 
 <a href="https://mihirruwala.cv"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/tokens-dark.svg"><img src="assets/tokens-light.svg" width="100%" alt="Design tokens: ink, ivory, lime, olive, mute. Instrument Serif, Inter, IBM Plex Mono."></picture></a>
 
-<p align="center"><a href="https://mihirruwala.cv"><b>mihirruwala.cv</b></a> · <a href="https://www.linkedin.com/in/mihir-ruwala-a920433a7/">LinkedIn</a> · <a href="https://medium.com/@ruwalamihir">Medium</a></p>
+<p align="center"><a href="https://mihirruwala.cv"><b>mihirruwala.cv</b></a> · <a href="https://www.linkedin.com/in/mihirruwala/">LinkedIn</a> · <a href="https://medium.com/@ruwalamihir">Medium</a></p>
