@@ -17,4 +17,4 @@ Second-year CSE student at VIT Vellore. Frontend is where I'm happiest: I'll hap
 
 ---
 
-Swift, Python, TypeScript, Next.js, Supabase, Figma · [mihirruwala.cv](https://mihirruwala.cv) · [LinkedIn](https://www.linkedin.com/in/mihir-ruwala-a920433a7/) · [Medium](https://medium.com/@ruwalamihir)
+Swift, Python, TypeScript, Next.js, Supabase, Figma · [mihirruwala.cv](https://mihirruwala.cv) · [LinkedIn](https://www.linkedin.com/in/mihirruwala/) · [Medium](https://medium.com/@ruwalamihir)
