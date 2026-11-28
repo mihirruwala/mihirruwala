@@ -47,8 +47,8 @@ for th,c in T.items():
         x+=wi; b+=f'<rect x="{x:.1f}" y="{my+9}" width="1" height="{mh-18}" fill="{c["div"]}"/>'
     b+=f'<path d="M{x+13:.1f} {my+13} L{x+19:.1f} {my+19} L{x+13:.1f} {my+25}" fill="none" stroke="{c["mtx"]}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
     # Markup: handwritten note + pen arrow, arrowhead along the curve's end tangent
-    lines=["my research:","who gets to decide if an","AI detector can be trusted?"]
-    nx,ny=W-36-cav(28).getlength(lines[2]),262
+    lines=["the question I can’t shake:","when an AI says “fake”,","why do we believe it?"]
+    nx,ny=W-36-max(cav(28).getlength(t) for t in lines),262
     b+=f'<g transform="rotate(-4 {nx:.1f} {ny})" font-family="HAND,cursive" font-size="28" fill="{c["note"]}">'+"".join(f'<text x="{nx:.1f}" y="{ny+30*i}">{t}</text>' for i,t in enumerate(lines))+'</g>'
     ex,ey=fx+fw+16,sy+sh/2-2; c2x,c2y=ex+66,ey-24
     b+=f'<path d="M{nx-8:.1f} {ny-14} C {nx-90:.1f} {ny-46}, {c2x:.1f} {c2y:.1f}, {ex:.1f} {ey:.1f}" fill="none" stroke="{c["note"]}" stroke-width="2.4" stroke-linecap="round"/>'
