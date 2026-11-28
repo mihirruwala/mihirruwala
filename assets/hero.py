@@ -23,8 +23,13 @@ for th,c in T.items():
     # handwritten note + hand-drawn arrow
     nx,ny=W-40-w("AI detector can be trusted?","cav.ttf",28),262
     b+=f'<g transform="rotate(-4 {nx} {ny})" font-family="HAND,cursive" font-size="28" fill="{c["note"]}"><text x="{nx}" y="{ny}">my research:</text><text x="{nx}" y="{ny+30}">who gets to decide if an</text><text x="{nx}" y="{ny+60}">AI detector can be trusted?</text></g>'
-    ax=sx+sw+14
-    b+=f'<path d="M{nx-8} {ny-14} C {nx-60} {ny-40}, {ax+60} {ny-46}, {ax+4} {sy+sh/2-4}" fill="none" stroke="{c["note"]}" stroke-width="2.2" stroke-linecap="round"/><path d="M{ax+16} {sy+sh/2-14} L{ax+3} {sy+sh/2-4} L{ax+17} {sy+sh/2+5}" fill="none" stroke="{c["note"]}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
+    ax=sx+sw+14; ex,ey=ax+4,sy+sh/2-4; c2x,c2y=ax+70,ey-26
+    b+=f'<path d="M{nx-8} {ny-14} C {nx-90} {ny-46}, {c2x} {c2y}, {ex} {ey}" fill="none" stroke="{c["note"]}" stroke-width="2.2" stroke-linecap="round"/>'
+    # arrowhead follows the curve's end tangent (c2 -> end), so the tip and the line meet
+    import math
+    th0=math.atan2(c2y-ey,c2x-ex); L=14; A=math.radians(30)
+    (p1x,p1y),(p2x,p2y)=[(ex+L*math.cos(th0+s),ey+L*math.sin(th0+s)) for s in (A,-A)]
+    b+=f'<path d="M{p1x:.1f} {p1y:.1f} L{ex} {ey} L{p2x:.1f} {p2y:.1f}" fill="none" stroke="{c["note"]}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
     # multiplayer cursor
     cx,cy=sx+sw-30,sy+sh-14
     b+=f'<g><animateTransform attributeName="transform" type="translate" values="0 0;0 0;220 -150;380 -60;0 0" keyTimes="0;.4;.6;.8;1" dur="8s" calcMode="spline" keySplines="0 0 1 1;.65 0 .35 1;.65 0 .35 1;.22 1 .36 1" repeatCount="indefinite"/><g transform="translate({cx} {cy})"><path d="M0 0 L0 18 L5 13.4 L8.2 20.6 L11.2 19.3 L8 12.3 L14.4 12.3 Z" fill="#ff5ccd" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><rect x="13" y="19" width="46" height="20" rx="4" fill="#ff5ccd"/><text x="36" y="33" text-anchor="middle" font-family="{SANS}" font-size="11.5" font-weight="600" fill="#fff">mihir</text></g></g>'
