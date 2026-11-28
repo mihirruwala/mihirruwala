@@ -1,7 +1,7 @@
 # Builds the hero (header-dark/light.svg) as native iOS UI: SF Pro large title, iOS text selection with the
 # edit menu, and the handwritten note as a Markup annotation. SF Pro can't be embedded (licence), so the title
 # uses the system font stack (SF on Apple devices); only the Markup hand (Caveat) is embedded.
-import base64,math,os
+import base64,glob,math,os,re
 from PIL import ImageFont
 D=os.path.dirname(__file__); F=f"{D}/fonts"
 b64=lambda f:base64.b64encode(open(f"{F}/{f}","rb").read()).decode()
@@ -14,6 +14,8 @@ SFT="-apple-system,'SF Pro Text',BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
 # iOS system colours (dark / light variants); backgrounds stay GitHub's so the card sits flush on the profile.
 T={"dark":dict(bg="#0d1117",label="#ffffff",sec="#98989f",blue="#0a84ff",hi=.32,menu="#2c2c2e",mtx="#ffffff",div="#48484a",note="#ffd60a",ptr="#ffffff"),
    "light":dict(bg="#ffffff",label="#000000",sec="#6c6c70",blue="#007aff",hi=.2,menu="#f2f2f7",mtx="#000000",div="#c6c6c8",note="#c26a00",ptr="#000000")}
+# GitHub's raw CDN ignores ?query, so each build gets its own filename. Bump V when the hero changes.
+V=8
 W,H=840,380; X=26; S=58; Y=[106,174,258]; TR=-0.6  # large-title tracking, px
 for th,c in T.items():
     b=f'<rect width="{W}" height="{H}" fill="{c["bg"]}"/>'
@@ -58,4 +60,8 @@ for th,c in T.items():
     # Figma multiplayer cursor
     cx,cy=fx+fw+8,fy+fh-30
     b+=f'<g><animateTransform attributeName="transform" type="translate" values="0 0;0 0;220 -150;380 -60;0 0" keyTimes="0;.4;.6;.8;1" dur="8s" calcMode="spline" keySplines="0 0 1 1;.65 0 .35 1;.65 0 .35 1;.22 1 .36 1" repeatCount="indefinite"/><g transform="translate({cx:.1f} {cy:.1f})"><path d="M0 0 L0 18 L5 13.4 L8.2 20.6 L11.2 19.3 L8 12.3 L14.4 12.3 Z" fill="#ff5ccd" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><rect x="13" y="19" width="46" height="20" rx="4" fill="#ff5ccd"/><text x="36" y="33" text-anchor="middle" font-family="{SFT}" font-size="11.5" font-weight="600" fill="#fff">mihir</text></g></g>'
-    open(f"{D}/header-{th}.svg","w").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}"><style>{css}</style>{b}</svg>')
+    open(f"{D}/header-{th}-v{V}.svg","w").write(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}"><style>{css}</style>{b}</svg>')
+for f in glob.glob(f"{D}/header-*.svg"):
+    if not f.endswith(f"-v{V}.svg"): os.remove(f)
+R=f"{D}/../README.md"; t=open(R).read()
+open(R,"w").write(re.sub(r"assets/header-(dark|light)[^\"]*\.svg(\?v=\d+)?", lambda m:f"assets/header-{m[1]}-v{V}.svg", t))
